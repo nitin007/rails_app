@@ -1,0 +1,88 @@
+<div class = "tweetsContentWrapper">
+	<div class = "tweetsContent">
+		<div id = "user">
+			<span><%= link_to "Logout", logout_path, method: :delete %></span>
+		</div>
+		
+		<div class = dashboard>
+			<div class = "composeTweets">
+				<div class = profileName>
+					<b><%= link_to current_user.fullname, user_path(current_user.username) %></b>
+					<div id = "sview">
+						<span> view my profile page</span>
+					</div>
+				</div>
+				<div class = "status">
+					<ul class = "status">
+						<li><b><%= current_user.tweets.count %></b><div><%= link_to "Tweets", mine_tweets_path %></div></li>
+						<li><b><%= @followings %></b><div><%= link_to "Following", followings_path %></div></li>
+						<li id = "last"><b><%= @followers %></b><div><%= link_to "Followers", followwers_path %></div></li>
+					</ul>
+				</div>
+				
+				<div class = "form">
+					<%= render "form" %>
+				</div>
+			</div>
+			
+			<div class = "whoToFollow">
+				<div><span>Who to follow</span></div>
+				<div><%= link_to "follow here", whoToFollow_path %></div>
+			</div>
+		</div>
+		
+		<div class = tweets>
+			<div class = "tweetsTable">
+				<table>
+					<tr>
+						<th> Tweets </th>
+					</tr>																			
+					
+					<% @tweets.each do |tweet| %>
+						<tr>
+							<td>
+							<% @user=User.find(TweetsUser.select("user_id").where("tweet_id = ?", tweet.id).order("created_at").first.user_id)%>
+								<div class = "userTweet"><b><%= @user.fullname %></b> <span>@<%= @user.username %></span></div>
+								<div><%= tweet.message %></div>
+								<ul>
+									<li>
+										<% if @user.id == current_user.id %>
+											<%= link_to "Delete", tweet, confirm: "Are you sure?", method: :delete %>											
+										<% else %>								
+											<% begin %>
+												<% tweet.users.find(current_user.id) %>
+												<% @tweet_user = TweetsUser.find(:first, :conditions => ['user_id = ? and tweet_id = ?', current_user.id, tweet.id]) %>
+												<%= link_to "Retweeted", tweets_user_path(@tweet_user),  :class => 'retweeted', :title => 'Undo Retweet', method: :delete, :remote => true %>
+											<% rescue ActiveRecord::RecordNotFound %>
+												<%= link_to "Retweet", {}, :class => 'retweet', :href => "#",  :title => 'Retweet' %>
+											<% end %>
+										<% end %>
+										<div class = "retweetForm">
+											<div><h2>Retweet this to your followers?</h2></div>
+											<div class= content>
+												<div class = "userTweet"><b><%= @user.fullname %></b> <span>@<%= @user.username %></span></div>
+												<div><%= tweet.message %></div>
+											</div>
+											<div>
+												<%= form_for @tweet_user, :remote => true do |f| %>
+													<%= f.hidden_field :user_id, :value => current_user.id %>
+													<%= f.hidden_field :tweet_id, :value => tweet.id %>
+													<table>
+														<tr>
+															<td><%= f.submit "Cancel", :type => 'button' %></td>
+															<td><%= f.submit ("Retweet") %></td>
+												 		</tr>
+												 	</table>
+												<% end %>							
+											</div>
+										</div>
+									</li>
+								</ul>
+							</td>
+						</tr>						
+					<% end %>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

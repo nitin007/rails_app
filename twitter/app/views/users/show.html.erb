@@ -1,0 +1,27 @@
+<div class = "myTweetWrapper">
+	<div class = "myTweetcontent">
+		<div class = "thisUser">
+			<div class = "myTweetBackground">
+				<div>
+				<div><%= link_to "Home", tweets_path %></div>
+					<div class = "userDetail">
+						<table>
+							<tr>
+								<td>Fullname :</td>
+								<td class = "two"><%= current_user.fullname %></td>							
+							</tr>
+							<tr>
+								<td>Email :</td>
+								<td class = "two"><%= current_user.email %></td>
+							</tr>
+							<tr>
+								<td>Username :</td>
+								<td class = "two"><%= current_user.username %></td>
+							</tr>						
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

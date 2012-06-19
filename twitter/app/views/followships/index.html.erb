@@ -1,0 +1,24 @@
+<div class = "users">
+	<div><%= link_to "Home", tweets_path %></div>
+	<div class = "usersTable">
+		<div>
+			<table>
+				<% @users.each do |user| %>
+					<tr>
+						<td  class = "fullname"><%= user.fullname %></td>
+						<td class = "button">
+							<% if @followship = current_user.followships.find_by_followerTo_id(user.id) %>
+								<%= button_to "Following", followship_path(@followship), :method => :delete %>
+							<% else %>
+								<%= button_to "Follow", followships_path(:followerTo_id => user.id), :method => :post %>
+							<% end %>
+						</td>
+					</tr>
+					<tr class = "border">
+						<td colspan = "2">@<%= user.username %></td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>

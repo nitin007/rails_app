@@ -1,0 +1,31 @@
+<div class = "myTweetWrapper">
+	<div class = "myTweetcontent">
+		<div class = "myTweetBackground">
+			<div class = "dashboard">
+				<div>
+					<div><%= link_to "Home", tweets_path %></div>
+				</div>
+			</div>
+			
+			<div>
+				<div class = "myTweets">
+					<div class = "tweetHeader"><b><div>Tweets</div></b></div>
+					<% current_user.tweets.each do |tweet| %>
+						<div class = "tweet">
+							<% @user = User.find(TweetsUser.where("tweet_id = ?", tweet.id).order("created_at").first.user_id)%>
+							<div class = "userTweet"><b><%= @user.fullname %></b> <span>@<%= @user.username %></span></div>
+							<div><%= tweet.message %></div>
+							
+							<% if current_user.id != @user.id %>
+								<div class = "userTweet"><span>Retweeted by <%= current_user.fullname %></span></div>
+							<% else %>
+								<div><%= link_to 'Delete', tweet, confirm: "Are you Sure", method: :delete %></div>
+							<% end %>
+						</div>
+					<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

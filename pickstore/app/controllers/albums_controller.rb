@@ -89,12 +89,7 @@ class AlbumsController < ApplicationController
 		end
 
     @album.destroy
-    #Fixed: NG
-
-    # FIXME: WA: Following will give double render or redirect
-    # error.
-    #Fixed: NG
-   	redirect_to albums_path and return, :notice => "Album was not destroyed!" if !@album.destroyed?
+   	redirect_to albums_path and return :notice => "Album was not destroyed!" if !@album.destroyed?
 
     respond_to do |format|
       format.html { redirect_to albums_url }

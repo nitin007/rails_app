@@ -25,8 +25,6 @@ class LoginsController < ApplicationController
 	def logout
 		session[:current_user_id] = nil
 		session[:current_user] = nil
-    # FIXME: WA: session[:current_user] still contains username
-    # Fixed: NG
 		redirect_to logins_path
 	end
 end

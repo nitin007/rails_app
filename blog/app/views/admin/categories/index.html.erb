@@ -1,0 +1,24 @@
+<h1>Manage Categories</h1>
+
+<p><%= flash[:notice] %></p>
+
+<div>
+	<table>
+		<tr>
+			<th>Categories</th>
+			<th colspan="2">Actions</th>
+		</tr>
+		<% @categories.each do |category| %>
+			<tr>
+				<td><%= category.name %></td>
+				<td><%= link_to "edit", edit_category_path(category) %></td>
+				<% if category.id != 1 %>
+					<td><%= link_to "destroy", category, confirm: "All posts under this category will be moved to default category(#{@default_category})!", method: :delete %></td>
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
+	<br/>
+	<%= link_to 'New', new_category_path %>
+	<%= link_to 'Back', posts_path %>
+</div>

@@ -1,0 +1,88 @@
+.wrapper
+{
+	width : 100%;
+	margin : 0;
+	padding : 0; 
+}
+
+.content_wrapper
+{
+	width : 90%;
+	margin : 0 auto;
+}
+
+.header
+{
+	width : 100%;
+	margin : 0 auto;
+	border : 3px solid #5C8A8A;
+	border-radius : 10px;
+	background-color : #5C8A8A;
+}
+
+.header .text
+{
+	width : 15%;
+	margin : 0 auto;
+	font-family : verdana;
+	font-size : 50px;
+	color : #EFF3F3;
+}
+
+.login
+{	
+	border : 1px solid #5F6868;
+	width : 400px;
+	margin : 0 auto;
+	padding : 5px;
+	background-color : #5F6868;
+	color : #E2F8F8;
+	font-family : verdana;
+	border-radius : 5px;
+}
+
+.login .head
+{
+	font-size : 20px;
+}
+
+.login td
+{
+	padding : 3px;
+}
+
+.login #username, .login #password
+{
+	width : 250px;
+	height : 18px;
+	border : 1px solid #E2F8F8;
+}
+
+.login span a
+{
+	text-decoration : none;
+	padding : 10px;
+	color : #fff;
+}
+
+.posts td
+{
+	background-color : #ADAD85;
+	color : #F5F0E6;
+	padding : 5px;
+}
+
+.posts
+{
+	border-collapse: collapse;
+}
+
+.posts tr
+{
+	border-bottom:2px solid #fff;
+}
+
+.posts td
+{
+	border-right:1px solid #343428;
+}

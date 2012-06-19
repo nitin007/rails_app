@@ -1,0 +1,100 @@
+
+---
+users:
+  columns:
+  - id
+  - username
+  - password
+  - created_at
+  - updated_at
+  records: 
+  - - 24
+    - nitin
+    - 939b80473546a3957f78c7946accc6e9e97f8deb902919780c13526069c8cf12a31987fdf3c22a2414f8c15276697750169a9c3b656fab2830117c61a6a008f0
+    - '2012-06-06 08:04:59.518926'
+    - '2012-06-06 08:04:59.518926'
+  - - 25
+    - akhil
+    - 4915bb3c851495295c172768ff344f56598ce48dea284acdd7714a1c709126d7a01e5493e7c7dbd61793796ecd3fa61bc613dc4b2de87ebba3ce5c9591c770a5
+    - '2012-06-06 08:04:59.995915'
+    - '2012-06-06 08:04:59.995915'
+
+---
+comments:
+  columns:
+  - id
+  - commenter
+  - body
+  - post_id
+  - created_at
+  - updated_at
+  records: 
+  - - 14
+    - 'yes'
+    - its working
+    - 5
+    - '2012-06-06 08:37:55.582432'
+    - '2012-06-06 08:37:55.582432'
+
+---
+tags:
+  columns:
+  - id
+  - name
+  - post_id
+  - created_at
+  - updated_at
+  records: 
+  - - 2
+    - good
+    - 6
+    - '2012-05-24 07:24:05.209673'
+    - '2012-05-24 07:24:05.209673'
+  - - 3
+    - nice
+    - 6
+    - '2012-05-24 07:24:13.797674'
+    - '2012-05-24 07:24:13.797674'
+  - - 10
+    - jkdshgb
+    - 1
+    - '2012-05-24 14:15:32.036768'
+    - '2012-05-24 14:15:32.036768'
+
+---
+categories:
+  columns:
+  - id
+  - name
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - sports
+    - '2012-05-24 13:06:35.017846'
+    - '2012-05-25 12:49:39.279533'
+  - - 9
+    - education
+    - '2012-05-25 10:56:58.698151'
+    - '2012-05-30 10:22:25.546697'
+
+---
+posts:
+  columns:
+  - id
+  - name
+  - title
+  - description
+  - category_id
+  - user_id
+  - created_at
+  - updated_at
+  records: 
+  - - 5
+    - nitin
+    - testing
+    - this is a test!
+    - 1
+    - 
+    - '2012-06-06 08:34:10.139723'
+    - '2012-06-06 08:34:10.139723'

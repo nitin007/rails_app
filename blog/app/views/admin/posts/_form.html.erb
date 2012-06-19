@@ -1,0 +1,39 @@
+<%= form_for(@post) do |post_form| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <p><%= flash[:error] %></p>
+
+  <div class="field">
+    <%= post_form.label :name %><br />
+    <%= post_form.text_field :name %>
+  </div>
+  <div class="field">
+    <%= post_form.label :title %><br />
+    <%= post_form.text_field :title %>
+  </div>
+  <div class="field">
+    <%= post_form.label :description %><br />
+    <%= post_form.text_area :description, :rows => 10 %>
+  </div>
+	
+	<div class = "categories">
+		<%= post_form.label :category %><br />
+		<%= post_form.select :category_id, Category.all.collect {|c| [ c.name, c.id ]}, :selected => 1%>
+	</div>
+   <br />
+   
+  <div class="actions">
+    <%= post_form.submit %>
+  </div>
+<% end %>
+ <br />

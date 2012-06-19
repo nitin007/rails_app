@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @image.title %>
+</p>
+
+<p>
+  <b>Picture:</b>
+  <%= image_tag @image.picture.url(:small) %>
+</p>
+
+<p>
+  <b>Tags:</b>
+  <%= @image.tags.map { |t| t.name }.join(", ") %>
+</p>
+
+<p>
+  <b>Album:</b>
+  <%= @image.album.name %>
+</p>
+
+<%# OPTIMIZE: WA: There is no need to populate an album in @album.
+Use @image.ablum instead. 
+	# Optimized: NG
+%>
+<%= link_to 'Back', album_path(@image.album) %> 
+<span>|</span>
+<%# FIXME: WA: Following link is used to 'destroy'
+a single image. There is no need to create a URI like /albums/:id/image/:image_id.
+  A URI like /images/:id will suffice. 
+  # Fixed: NG
+  %>
+<%= link_to "destroy", @image, confirm: 'Are you sure?', method: :delete %>
+

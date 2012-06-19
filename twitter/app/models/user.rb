@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   validates :email, :presence => true
   validates :username, :presence => true, :uniqueness => true
   validates :password, :length => {:minimum => 8}
+  
+  validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
  
   has_many :followships
   has_many :followerTos, :through => :followships

@@ -11,8 +11,7 @@ class TweetsUsersController < ApplicationController
 		end
 	end
 	
-	def destroy
-		
+	def destroy		
 		@tweet_user = TweetsUser.find(params[:id])
 		@tweet_user.destroy
 		

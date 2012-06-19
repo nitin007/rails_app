@@ -10,11 +10,11 @@ class Admin::CategoriesController < ApplicationController
 	end
 
 	def edit
-		if Category.exists?(params[:id])
+		begin
 			@category = Category.find(params[:id])
-		else
+		rescue ActiveRecord::RecordNotFound
 			render :file => "#{Rails.root}/public/recordnotfound.html", :layout => false
-		end	
+		end
 	end
 
 	def new

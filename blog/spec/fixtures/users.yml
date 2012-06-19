@@ -2,10 +2,10 @@
 
 one:
   id: 1
-  username: MyString
+  username: MyString1
   password: MyString
 
 two:
   id: 2
-  username: MyString
+  username: MyString2
   password: MyString

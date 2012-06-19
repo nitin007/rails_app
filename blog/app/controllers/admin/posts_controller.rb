@@ -9,15 +9,15 @@ class Admin::PostsController < ApplicationController
     end
   end
   
-  def show
-  	if Post.exists?(params[:id])
-	  	@post = Post.find(params[:id])
-			respond_to do |format|
-			  format.html
-			  format.json { render json: @post }
-			end
-		else
-			render :file => "#{Rails.root}/public/recordnotfound.html", :layout => false
+  def show  
+		begin
+			@post = Post.find(params[:id])
+		rescue ActiveRecord::RecordNotFound
+			render :file => "#{Rails.root}/public/recordnotfound.html", :layout => false and return
+		end
+		respond_to do |format|
+			format.html
+			format.json { render json: @post }
 		end
   end
 
@@ -29,11 +29,11 @@ class Admin::PostsController < ApplicationController
   end
 
   def edit
-		if Post.exists?(params[:id])
+		begin
 			@post = Post.find(params[:id])
-		else
+		rescue ActiveRecord::RecordNotFound
 			render :file => "#{Rails.root}/public/recordnotfound.html", :layout => false
-		end   
+		end
   end
 
   def create
@@ -55,7 +55,6 @@ class Admin::PostsController < ApplicationController
     respond_to do |format|
       if @post.update_attributes(params[:post])
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
         format.json { render json: @post.errors, status: :unprocessable_entity }

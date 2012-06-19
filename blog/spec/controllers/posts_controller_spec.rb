@@ -2,13 +2,14 @@ require 'spec_helper'
 
 describe Admin::PostsController, :type => :controller do
 	render_views
-	fixtures :posts
-	fixtures :categories
 	fixtures :users
 	
 	before(:each) do
-		@post = posts(:one)
-		@category = categories(:one)
+		@post = mock_model('Post')
+		Post.stub!(:new).and_return(@post)		
+		@post.stub!(:save).and_return(true)
+		Post.stub!(:find).with("7") { @post }		
+
 		@user = users(:one)
 		session[:current_user] = @user.username
 		session[:current_user_id] = @user.id
@@ -17,13 +18,11 @@ describe Admin::PostsController, :type => :controller do
 	it "shows all posts when index is called" do
 		get :index
 		response.should be_success
-		assigns(:posts).should eq(Post.all)
 	end
 	
 	it "shows the post" do
-		get :show, :id => @post.id
+		get :show, :id => 7
 		response.should be_success
-		assigns(:post).should eq(@post)
 	end
 	
 	it "renders with an empty new post" do
@@ -32,20 +31,20 @@ describe Admin::PostsController, :type => :controller do
 	end
 	
 	it "renders with desired post for editing" do
-		get :edit, :id => @post.id
+		get :edit, :id => 7
 		response.should be_success
-		assigns(:post).should eq(@post)
 	end
 	  
 	context "creating a new post" do
 		it "should redirect to saved post with a notice on successful save" do
-			post 'create', :post => {:name => "nitin", :title => "rspec test", :description => "kjdsgf", :category_id => @category.id, :user_id => @user.id}
+			post :create
 			flash[:notice].should_not be_nil
-			response.should be_redirect
+			response.should redirect_to(post_path(@post))
 		end
 
 		it "should re-render new template on failed save" do
-		  post 'create', :post => {}
+			@post.stub!(:save).and_return(false)
+		  post :create
 		  flash[:notice].should be_nil
 		  response.should render_template('new')
 		end
@@ -53,13 +52,15 @@ describe Admin::PostsController, :type => :controller do
 	
 	context "updating a new post" do
 		it "should redirect to updated post with a notice on successful update" do
-			put 'update', :id => @post.id
+			@post.stub!(:update_attributes).and_return(true)
+			put 'update', :id => 7
 			flash[:notice].should_not be_nil
 			response.should be_redirect
 		end
 		
 		it "should re-render edit template on failed update" do
-			put :update, :id => @post.id, :post => {:name => ""}
+			@post.stub!(:update_attributes).and_return(false)
+			put :update, :id => 7
 			flash[:notice].should be_nil
 			response.should render_template('edit')
 		end
@@ -67,7 +68,7 @@ describe Admin::PostsController, :type => :controller do
 	
 	context "destroying a post" do
 		it "should render the index template on post destroys" do
-			delete 'destroy', :id => @post.id
+			delete 'destroy', :id => 7
 			response.should redirect_to(posts_path)
 		end
 	end

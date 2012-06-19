@@ -1,0 +1,20 @@
+Run options: include {:locations=>{"./logins_controller_spec.rb"=>[16]}}
+
+LoginsController
+  redirects user
+[31m    on successful login to posts path (FAILED - 1)[0m
+
+Failures:
+
+  1) LoginsController redirects user on successful login to posts path
+     [31mFailure/Error:[0m [31msession[:current_user].should_not be_nil[0m
+       [31mexpected: not nil[0m
+       [31m     got: nil[0m
+[36m     # ./logins_controller_spec.rb:19:in `block (3 levels) in <top (required)>'[0m
+
+Finished in 0.11626 seconds
+[31m1 example, 1 failure[0m
+
+Failed examples:
+
+[31mrspec ./logins_controller_spec.rb:16[0m [36m# LoginsController redirects user on successful login to posts path[0m

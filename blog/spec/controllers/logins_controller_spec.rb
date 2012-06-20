@@ -18,7 +18,7 @@ describe LoginsController, :type => :controller do
 			post :login, :username => @user.username, :password => @user.password
 			session[:current_user_id].should_not be_nil
 			flash[:notice].should eq("You have logged in successfully!")
-			response.should redirect_to(albums_path)		
+			response.should redirect_to(posts_path)		
 		end
 		
 		it "on unsuccessful login to login_path" do

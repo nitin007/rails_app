@@ -10,7 +10,7 @@ class FollowshipsController < ApplicationController
 	end
 
   def create
-    @followship = current_user.followships.build(:followerTo_id => params[:followerTo_id])
+    @followship = current_user.followships.new(:followerTo_id => params[:followerTo_id])
     
     respond_to do |format|
       if @followship.save

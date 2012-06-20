@@ -24,12 +24,12 @@ describe LoginsController, :type => :controller do
 	it "on unsuccessful login to redirects to login page" do
 		post :login, :username => @user.username
 		flash[:notice].should eq("username or password is incorrect!")
-		response.should redirect_to(logins_path)		
+		response.should redirect_to(login_path)		
 	end
 	
 	it "destroys session when logout is called" do
 		post :logout
 		session[:current_user_id].should be_nil
-		response.should redirect_to(logins_path)
+		response.should redirect_to(login_path)
 	end
 end

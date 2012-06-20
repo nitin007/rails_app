@@ -7,7 +7,7 @@ class TweetsController < ApplicationController
 		@followers = current_user.inverse_followerTos.count
 		@tweet_user = TweetsUser.new
 		
-		@tweets = Tweet.find_by_sql("select tweets.id, message, ttype from tweets INNER JOIN tweets_users ON tweets_users.tweet_id = tweets.id INNER JOIN followships ON tweets_users.user_id = followships.followerTo_id where followships.user_id = '5' UNION select id, message, ttype from tweets where ttype = 'public'")
+		@tweets = Tweet.find_by_sql("select tweets.id, message from tweets INNER JOIN tweets_users ON tweets_users.tweet_id = tweets.id where tweets_users.user_id = #{current_user.id} UNION select tweets.id, message from tweets_users INNER JOIN followships ON tweets_users.user_id = followerTo_id INNER JOIN tweets ON tweets_users.tweet_id = tweets.id where followships.user_id = #{current_user.id} UNION select id, message from tweets where ttype = 'public'")
 		
 		respond_to do |format|
 			format.html

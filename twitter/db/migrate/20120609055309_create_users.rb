@@ -6,10 +6,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :username
       t.string :password
       t.string :password_digest
+      t.string :slug
 
       t.timestamps
-      
-      add_index :users, :slug, unique: true
     end
   end
 end

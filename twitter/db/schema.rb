@@ -11,13 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120618062711) do
+ActiveRecord::Schema.define(:version => 20120618054025) do
 
   create_table "followships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "followerTo_id"
-    t.string   "create"
-    t.string   "destroy"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -42,11 +40,9 @@ ActiveRecord::Schema.define(:version => 20120618062711) do
     t.string   "username"
     t.string   "password"
     t.string   "password_digest"
+    t.string   "slug"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.string   "slug"
   end
-
-  add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
 
 end

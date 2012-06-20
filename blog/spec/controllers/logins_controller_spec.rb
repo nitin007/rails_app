@@ -7,6 +7,7 @@ describe LoginsController, :type => :controller do
 		@user = mock_model('User', {:username => 'nitin', :password => "abcdefghi" })
 	end
 	
+	
 	it "shows the index template with(login page)" do
 		get :index
 		response.should be_success

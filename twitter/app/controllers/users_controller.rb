@@ -24,6 +24,12 @@ class UsersController < ApplicationController
 	end
 	
 	def show
+		begin
+			@user = User.find(params[:id])
+		rescue ActiveRecord::RecordNotFound
+			redirect_to tweets_path and return
+		end
+		
 		respond_to do |format|
 			format.html
 		end

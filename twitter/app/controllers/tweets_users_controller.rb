@@ -6,17 +6,21 @@ class TweetsUsersController < ApplicationController
 		  if @tweet_user.save
 		    format.html { redirect_to tweets_path, notice: 'Tweet was successfully posted.' }
 		  else
-		  	format.html { render action: "index" }
+		  	format.html { render :text => "tweet was not saved successfully" }
 		  end
 		end
 	end
 	
 	def destroy		
-		@tweet_user = TweetsUser.find(params[:id])
+		begin
+			@tweet_user = TweetsUser.find(params[:id])
+		rescue ActiveRecord::RecordNotFound
+			render :text => "Record Not Found"
+		end
 		@tweet_user.destroy
 		
 		respond_to do |format|
-			format.js
+			format.html {redirect_to tweets_path}
 		end
 	end
-end
+end	

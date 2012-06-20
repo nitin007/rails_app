@@ -9,16 +9,24 @@ describe TweetsUsersController, :type => :controller do
 		@tweets_user.stub!(:save).and_return(true)
 	end
 	
-	context "create entry for tweet which is created or retweeted" do
-		it "should redirect to tweets path" do
+	context "create tweet or retweet" do
+		it "should redirect to tweets path if successfully saved" do
 			post :create
 			flash[:notice].should_not be_nil
 			response.should redirect_to(tweets_path)
 		end
+		
+		it "should render some text if not saved successfully" do
+			@tweets_user.stub!(:save).and_return false
+			post :create
+			flash[:notice].should be_nil
+			response.should render_template(:text => "tweet was not saved successfully")
+		end
 	end
 	
-	it "should destroys entry from relationship model when undo retweet or tweet deleted" do
-		TweetsUser.stub!(:find).with("3") { @tweets_user }
-		delete :destroy, :id => "3"
+	it "should destroys when undo retweet or tweet deleted" do
+		TweetsUser.stub!(:find).and_return @tweets_user
+		delete :destroy
+		response.should redirect_to tweets_path
 	end
 end

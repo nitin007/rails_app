@@ -28,9 +28,10 @@ describe LoginsController, :type => :controller do
 	end
 	
 	it "destroys session when logout is called" do
+		controller.stub!(:only_when_user_is_logged_in).and_return true
 		post :logout
 		session[:current_user_id].should be_nil
 		session[:current_user].should be_nil
-		response.should redirect_to(logins_path)
+		response.should redirect_to(login_path)
 	end
 end

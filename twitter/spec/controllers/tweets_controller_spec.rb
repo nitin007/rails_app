@@ -25,9 +25,15 @@ describe TweetsController, :type => :controller do
 	end
 	
 	context "creates a new tweet" do
-		it "should redirect to tweets path" do
+		it "should redirect to tweets path if saved successfully" do
 			post :create
 			response.should redirect_to(tweets_path)
+		end
+		
+		it "should render index if not saved successfully" do
+			@tweet.stub!(:save).and_return false
+			post :create
+			response.should render_template :text => "Tweet not saved successfully"
 		end
 	end
 	

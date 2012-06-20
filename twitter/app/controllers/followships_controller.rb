@@ -10,19 +10,19 @@ class FollowshipsController < ApplicationController
 	end
 
   def create
-    @followship = current_user.followships.new(:followerTo_id => params[:followerTo_id])
+    @followship = current_user.followships.build(:followerTo_id => params[:followerTo_id])
     
     respond_to do |format|
-      if @followship.save
-        format.html { redirect_to whoToFollow_path, notice: 'Followship was successfully created.' }
-      else
-        format.html { render action: "new" }
-      end
+	    format.html { redirect_to whoToFollow_path, notice: 'Followship was successfully created.' } if @followship.save
     end
   end
 
   def destroy
-    @followship = Followship.find(params[:id])
+		begin
+	    @followship = Followship.find(params[:id])
+	  rescue ActiveRecord::RecordNotFound
+	  	render :text => "Record Not Found"
+	  end
     @followship.destroy
 
     respond_to do |format|

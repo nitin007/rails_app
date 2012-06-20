@@ -20,14 +20,16 @@ class TweetsController < ApplicationController
 		respond_to do |format|
 		  if @tweet.save
 		    format.html { redirect_to tweets_path, notice: 'Tweet was successfully posted.' }
-		  else
-		  	format.html { render action: "index" }
 		  end
 		end
 	end
 	
 	def destroy
-		@tweet = Tweet.find(params[:id])
+		begin
+			@tweet = Tweet.find(params[:id])
+		rescue ActiveRecord::RecordNotFound
+			render :text => "Record Not Found"
+		end
 		
 		@tweet.destroy
 		respond_to do |format|		

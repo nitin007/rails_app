@@ -12,6 +12,7 @@ describe LoginsController, :type => :controller do
 		response.should be_success
 	end
 			
+			
 	context "redirects user" do
 		it "on successful login to posts path" do
 			@user.stub!(:authenticate).and_return true

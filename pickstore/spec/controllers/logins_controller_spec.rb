@@ -6,6 +6,8 @@ describe LoginsController, :type => :controller do
 	before(:each) do
 		@user = mock_model('User', {:username => 'nitin', :password => 'abcdefghi'})
 	end
+	
+	
 		
 	it "shows login page when index is called" do
 		get :index

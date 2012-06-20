@@ -2,7 +2,6 @@ class AlbumsController < ApplicationController
 	before_filter :only_when_user_is_logged_in
 	
   def index
-    #Fixed: NG
     @albums = @current_user.albums.to_a
 
     # Fixed: NG

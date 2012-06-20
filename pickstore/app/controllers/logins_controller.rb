@@ -21,7 +21,6 @@ class LoginsController < ApplicationController
 		end
 	end
 	
-  # Fixed: NG
 	def logout
 		session[:current_user_id] = nil
 		session[:current_user] = nil

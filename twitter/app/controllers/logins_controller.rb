@@ -22,7 +22,7 @@ class LoginsController < ApplicationController
 	end
 	
 	def logout
-		session[:current_user] = nil
+		session[:current_user_id] = nil
 		session[:current_user] = nil
 		redirect_to login_path
 	end

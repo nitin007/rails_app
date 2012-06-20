@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(:version => 20120618054025) do
     t.string   "fullname"
     t.string   "email"
     t.string   "username"
-    t.string   "password"
     t.string   "password_digest"
     t.string   "slug"
     t.datetime "created_at",      :null => false

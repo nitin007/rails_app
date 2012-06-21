@@ -7,6 +7,8 @@ class TweetsController < ApplicationController
 		@followers = current_user.inverse_followings.count
 		@tweet_user = TweetsUser.new
 		
+    # FIXME: WA: Following fetches tweets in the order those
+    # were created. Fetch the earliest tweet first.
 		@tweets = Tweet.find_by_sql("select tweets.id, message from tweets INNER JOIN tweets_users ON tweets_users.tweet_id = tweets.id where tweets_users.user_id = #{current_user.id} UNION select tweets.id, message from tweets_users INNER JOIN followships ON tweets_users.user_id = following_id INNER JOIN tweets ON tweets_users.tweet_id = tweets.id where followships.user_id = #{current_user.id} UNION select id, message from tweets where ttype = 'public'")
 		
 		respond_to do |format|
@@ -18,6 +20,7 @@ class TweetsController < ApplicationController
 	  @tweet = current_user.tweets.create(params[:tweet])
 
 		respond_to do |format|
+      # FIXME: WA: What if tweet was not saved.
 		  if @tweet.save
 		    format.html { redirect_to tweets_path, notice: 'Tweet was successfully posted.' }
 		  end
@@ -31,6 +34,7 @@ class TweetsController < ApplicationController
 			render :text => "Record Not Found"
 		end
 		
+    # FIXME: WA: What if tweet was not destroyed.
 		@tweet.destroy
 		respond_to do |format|		
 			format.html { redirect_to tweets_path }

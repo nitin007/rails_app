@@ -38,5 +38,9 @@ production:
   database: twitter_production
   pool: 5
   username: root
+# FIXME: WA: You are exposing your database's password to
+# everyone. Usually we put files that have sensitive information
+# in .gitignore and copy over to production in a deploy task.
+# Development machine can have their own version of those files.
   password: 1am0nly4r0mi
   socket: /var/run/mysqld/mysqld.sock

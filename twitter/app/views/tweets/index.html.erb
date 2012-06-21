@@ -14,7 +14,7 @@
 				</div>
 				<div class = "status">
 					<ul class = "status">
-						<li><b><%= current_user.tweets.count %></b><div><%= link_to "Tweets", mine_tweets_path %></div></li>
+						<li><b><%= my_tweets.count %></b><div><%= link_to "Tweets", mine_tweets_path %></div></li>
 						<li><b><%= @followings %></b><div><%= link_to "Following" %></div></li>
 						<li id = "last"><b><%= @followers %></b><div><%= link_to "Followers" %></div></li>
 					</ul>
@@ -41,7 +41,7 @@
 					<% @tweets.each do |tweet| %>
 						<tr>
 							<td>
-							<% @user=User.find(TweetsUser.select("user_id").where("tweet_id = ?", tweet.id).order("created_at").first.user_id)%>
+							<% @user = User.find(Tweet.where("id = ?", tweet.id).first.user_id) %>
 								<div class = "userTweet"><b><%= @user.fullname %></b> <span>@<%= @user.username %></span></div>
 								<div><%= tweet.message %></div>
 								<ul>
@@ -52,7 +52,7 @@
 											<% begin %>
 												<% tweet.users.find(current_user.id) %>
 												<% @tweet_user = TweetsUser.find(:first, :conditions => ['user_id = ? and tweet_id = ?', current_user.id, tweet.id]) %>
-												<%= link_to "Retweeted", tweets_user_path(@tweet_user),  :class => 'retweeted', :title => 'Undo Retweet', method: :delete, :remote => true %>
+												<%= link_to "Retweeted", tweets_user_path(@tweet_user),  :class => 'retweeted', :title => 'Undo Retweet', method: :delete %>
 											<% rescue ActiveRecord::RecordNotFound %>
 												<%= link_to "Retweet", {}, :class => 'retweet', :href => "#",  :title => 'Retweet' %>
 											<% end %>
@@ -64,7 +64,7 @@
 												<div><%= tweet.message %></div>
 											</div>
 											<div>
-												<%= form_for @tweet_user, :remote => true do |f| %>
+												<%= form_for @tweet_user do |f| %>
 													<%= f.hidden_field :user_id, :value => current_user.id %>
 													<%= f.hidden_field :tweet_id, :value => tweet.id %>
 													<table>

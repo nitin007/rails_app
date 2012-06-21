@@ -35,13 +35,8 @@ describe User do
 	context "password and password_confirmation" do 
     # FIXME: WA: We do not need following test.
     # It is provided by rails.
-		it "should be equal" do
-			@user1 = User.new(:fullname => "Nitin Gupta", :email => "nitin@vinsol.com", :username => "nitin1", :password => "12345678", :password_confirmation => "123456789")
-			@user1.should_not be_valid
-			
-			@user1.password = "123456789"
-			@user1.should be_valid
-		end
+    
+    #Fixed: NG
 	end
 	
 	context "password length" do

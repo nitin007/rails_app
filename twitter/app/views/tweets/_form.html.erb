@@ -4,14 +4,16 @@
 			<td colsapan = "2"><%= f.text_area :message, :rows => 2, :onkeyup => "return checkMaxlength(this)" %></td>
 		</tr>
 		
-		<tr>
-			<td><%= f.submit('Tweet', :class => 'tweetSubmit') %></td>
-		</tr>
 		<% if current_user.username.eql? "public_user" %>
 			<% @ttype = 'public' %>
 		<% else %>
 			<% @ttype = 'private' %>
 		<% end %>
 		<%= f.hidden_field :ttype, :value => @ttype %>
+		<%= f.hidden_field :user_id, :value => current_user.id %>
+				
+		<tr>
+			<td><%= f.submit('Tweet', :class => 'tweetSubmit') %></td>
+		</tr>
 	</table>
 <% end %>

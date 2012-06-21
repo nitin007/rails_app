@@ -1,9 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user
+  helper_method :current_user, :my_tweets
   
   def current_user
   	@current_user ||= User.find(session[:current_user_id])
+  end
+  
+  def my_tweets
+  	@my_tweets ||= current_user.tweets + Tweet.where("user_id = ?", current_user.id)
   end
     
   private

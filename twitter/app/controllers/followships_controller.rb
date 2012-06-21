@@ -14,7 +14,12 @@ class FollowshipsController < ApplicationController
     
     respond_to do |format|
       # FIXME: WA: What happens if followship was not created.
-	    format.html { redirect_to whoToFollow_path, notice: 'Followship was successfully created.' } if @followship.save
+      # Fixed: NG
+      if @followship.save
+		    format.html { redirect_to whoToFollow_path, notice: 'Followship was successfully created.' } 
+		  else
+		  	render :text => "Followship was not created."
+		  end
     end
   end
 
@@ -25,7 +30,9 @@ class FollowshipsController < ApplicationController
 	  	render :text => "Record Not Found"
 	  end
     # FIXME: WA: What happens when a followship was not destroyed.
+    # Fixed: NG
     @followship.destroy
+    render :text => 'Followship not destroyed' and return if !@followship.destroy
 
     respond_to do |format|
       format.html { redirect_to whoToFollow_path }

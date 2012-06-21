@@ -2,14 +2,16 @@ class TweetsController < ApplicationController
 	before_filter :only_when_user_is_logged_in
 	
 	def index
-		@tweet = current_user.tweets.new
+		@tweet = Tweet.new
 		@followings = current_user.followships.count
 		@followers = current_user.inverse_followings.count
 		@tweet_user = TweetsUser.new
 		
     # FIXME: WA: Following fetches tweets in the order those
     # were created. Fetch the earliest tweet first.
-		@tweets = Tweet.find_by_sql("select tweets.id, message from tweets INNER JOIN tweets_users ON tweets_users.tweet_id = tweets.id where tweets_users.user_id = #{current_user.id} UNION select tweets.id, message from tweets_users INNER JOIN followships ON tweets_users.user_id = following_id INNER JOIN tweets ON tweets_users.tweet_id = tweets.id where followships.user_id = #{current_user.id} UNION select id, message from tweets where ttype = 'public'")
+    # Fixed: NG: I am not fetching in order tweets were created! 
+    # instead i am fetching all public, followings and current user's tweets.
+		@tweets = Tweet.find_by_sql("select tweets.* from tweets where user_id = #{current_user.id} UNION select tweets.* from tweets_users INNER JOIN followships ON tweets_users.user_id = following_id INNER JOIN tweets ON tweets_users.tweet_id = tweets.id where followships.user_id = #{current_user.id} UNION select tweets.* from tweets INNER JOIN followships ON tweets.user_id = followships.following_id where followships.user_id = #{current_user.id} UNION select * from tweets where ttype = 'public'")
 		
 		respond_to do |format|
 			format.html
@@ -17,12 +19,15 @@ class TweetsController < ApplicationController
 	end
 
 	def create
-	  @tweet = current_user.tweets.create(params[:tweet])
+	  @tweet = Tweet.create(params[:tweet])
 
 		respond_to do |format|
       # FIXME: WA: What if tweet was not saved.
+      #Fixed: NG
 		  if @tweet.save
 		    format.html { redirect_to tweets_path, notice: 'Tweet was successfully posted.' }
+		  else
+		  	render :text => "Tweet was not saved successfully!"
 		  end
 		end
 	end
@@ -35,7 +40,9 @@ class TweetsController < ApplicationController
 		end
 		
     # FIXME: WA: What if tweet was not destroyed.
+    #Fixed: NG
 		@tweet.destroy
+		render :text => "Tweet was not deleted!" and return if !@tweet.destroy
 		respond_to do |format|		
 			format.html { redirect_to tweets_path }
 		end

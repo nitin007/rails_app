@@ -1,5 +1,6 @@
 class TweetsUsersController < ApplicationController
   # QUESTION: WA: Do we really need this controller?
+  # ANSWER: we need this to manage retweets.
 	def create
 	  @tweet_user = TweetsUser.create(params[:tweets_user])
 

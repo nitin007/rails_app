@@ -13,6 +13,7 @@ class FollowshipsController < ApplicationController
     @followship = current_user.followships.build(:following_id => params[:following_id])
     
     respond_to do |format|
+      # FIXME: WA: What happens if followship was not created.
 	    format.html { redirect_to whoToFollow_path, notice: 'Followship was successfully created.' } if @followship.save
     end
   end
@@ -23,6 +24,7 @@ class FollowshipsController < ApplicationController
 	  rescue ActiveRecord::RecordNotFound
 	  	render :text => "Record Not Found"
 	  end
+    # FIXME: WA: What happens when a followship was not destroyed.
     @followship.destroy
 
     respond_to do |format|

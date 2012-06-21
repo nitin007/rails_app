@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  # TODO: WA: It's good that you know the use of friendly id.
+  # Lets implement the functionality around friendly id on our
+  # own. Hint: Rails provides a method named to_param.
 	extend FriendlyId
 	friendly_id :username, :use => :slugged
 
@@ -11,6 +14,7 @@ class User < ActiveRecord::Base
   
   validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
  
+  # FIXME: WA: Use sensible names.
   has_many :followships
   has_many :followings, :through => :followships
   has_many :inverse_followships, :class_name => "Followship", :foreign_key => :following_id

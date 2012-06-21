@@ -1,4 +1,5 @@
 class TweetsUsersController < ApplicationController
+  # QUESTION: WA: Do we really need this controller?
 	def create
 	  @tweet_user = TweetsUser.create(params[:tweets_user])
 

@@ -10,7 +10,7 @@ class FollowshipsController < ApplicationController
 	end
 
   def create
-    @followship = current_user.followships.build(:followerTo_id => params[:followerTo_id])
+    @followship = current_user.followships.build(:following_id => params[:following_id])
     
     respond_to do |format|
 	    format.html { redirect_to whoToFollow_path, notice: 'Followship was successfully created.' } if @followship.save

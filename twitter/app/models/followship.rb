@@ -1,6 +1,6 @@
 class Followship < ActiveRecord::Base
-  attr_accessible :followerTo_id, :user_id
+  attr_accessible :following_id, :user_id
   
   belongs_to :user
-  belongs_to :followerTo, :class_name => "User"
+  belongs_to :following, :class_name => "User"
 end

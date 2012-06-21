@@ -7,10 +7,10 @@
 					<tr>
 						<td  class = "fullname"><%= user.fullname %></td>
 						<td class = "button">
-							<% if @followship = current_user.followships.find_by_followerTo_id(user.id) %>
+							<% if @followship = current_user.followships.find_by_following_id(user.id) %>
 								<%= button_to "Following", followship_path(@followship), :method => :delete %>
 							<% else %>
-								<%= button_to "Follow", followships_path(:followerTo_id => user.id), :method => :post %>
+								<%= button_to "Follow", followships_path(:following_id => user.id), :method => :post %>
 							<% end %>
 						</td>
 					</tr>

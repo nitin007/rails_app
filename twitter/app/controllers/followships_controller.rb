@@ -31,6 +31,7 @@ class FollowshipsController < ApplicationController
 	  end
     # FIXME: WA: What happens when a followship was not destroyed.
     # Fixed: NG
+    
     @followship.destroy
     render :text => 'Followship not destroyed' and return if !@followship.destroy
 

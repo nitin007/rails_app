@@ -3,7 +3,7 @@ class TweetsUsersController < ApplicationController
   # ANSWER: we need this to manage retweets.
   
 	def create
-	  @tweet_user = TweetsUser.create(params[:tweets_user])
+	  @tweet_user = current_user.tweets_users.create(params[:tweets_user])
 
 		respond_to do |format|
 		  if @tweet_user.save
@@ -16,7 +16,7 @@ class TweetsUsersController < ApplicationController
 	
 	def destroy		
 		begin
-			@tweet_user = TweetsUser.find(params[:id])
+			@tweet_user = current_user.tweets_users.find(params[:id])
 		rescue ActiveRecord::RecordNotFound
 			render :text => "Record Not Found"
 		end

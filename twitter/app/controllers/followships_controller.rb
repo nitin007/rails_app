@@ -25,7 +25,7 @@ class FollowshipsController < ApplicationController
 
   def destroy
 		begin
-	    @followship = Followship.find(params[:id])
+	    @followship = current_user.followships.find(params[:id])
 	  rescue ActiveRecord::RecordNotFound
 	  	render :text => "Record Not Found"
 	  end

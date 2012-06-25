@@ -3,8 +3,8 @@ class TweetsController < ApplicationController
 	before_filter :only_when_user_is_logged_in
 	
 	def index
-		@tweet = Tweet.new
-		@followings = current_user.followships.count
+		@tweet = current_user.tweets.new
+		@followings = current_user.followings.count
 		@followers = current_user.inverse_followings.count
 		@tweet_user = TweetsUser.new
 		
@@ -17,8 +17,10 @@ class TweetsController < ApplicationController
     # were created. Even if you do not specify any order.
     # Because of this old tweets in the user's timeline appear
     # above new tweets. Shouldn't new tweets appear on top?
-		@tweets = Tweet.find_by_sql("select tweets.* from tweets where user_id = #{current_user.id} UNION select tweets.* from tweets_users INNER JOIN followships ON tweets_users.user_id = following_id INNER JOIN tweets ON tweets_users.tweet_id = tweets.id where followships.user_id = #{current_user.id} UNION select tweets.* from tweets INNER JOIN followships ON tweets.user_id = followships.following_id where followships.user_id = #{current_user.id} UNION select * from tweets where ttype = 'public'")
-		
+    # Fixed: NG
+    
+		@tweets = Tweet.find_by_sql("select tweets.* from tweets where user_id = #{current_user.id} UNION select tweets.* from tweets_users INNER JOIN follows ON tweets_users.user_id = following_id INNER JOIN tweets ON tweets_users.tweet_id = tweets.id where follows.user_id = #{current_user.id} UNION select tweets.* from tweets INNER JOIN follows ON tweets.user_id = follows.following_id where follows.user_id = #{current_user.id} UNION select * from tweets where ttype = 'public'").sort.reverse
+				
 		respond_to do |format|
 			format.html
 		end
@@ -30,7 +32,9 @@ class TweetsController < ApplicationController
     #
     # Here you are first _create_ and then save the same record
     # back to database.
-	  @tweet = Tweet.create(params[:tweet])
+    
+    #Fixed: NG
+	  @tweet = current_user.tweets.build(params[:tweet])
 
 		respond_to do |format|
 		  if @tweet.save
@@ -43,7 +47,7 @@ class TweetsController < ApplicationController
 	
 	def destroy
 		begin
-			@tweet = Tweet.find(params[:id])
+			@tweet = current_user.tweets.find(params[:id])
 		rescue ActiveRecord::RecordNotFound
 			render :text => "Record Not Found"
 		end
@@ -51,11 +55,13 @@ class TweetsController < ApplicationController
     # FIXME: WA: You are calling the same method twice in succession.
     # Please see create action how to do it properly.
     # Try not to use 'and' use && instead.
+    # Fixed: NG
 
     # QUESTION: WA: When a tweet is destroyed, what happens to its
     # retweets? Do they remain in the database? Are other users still
     # able to see their messages?
-		@tweet.destroy
+    
+    # Answer: NG: No, they'll not be able to see their retweets as dependent will be destroyed (managed through dependent => destroy).
 		render :text => "Tweet was not deleted!" and return if !@tweet.destroy
 		respond_to do |format|		
 			format.html { redirect_to tweets_path }
@@ -63,6 +69,7 @@ class TweetsController < ApplicationController
 	end
 	
 	def mine
+		
 		respond_to do |format|
 			format.html
 		end

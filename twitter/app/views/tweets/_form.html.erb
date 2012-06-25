@@ -5,14 +5,14 @@
 		</tr>
 		
     <%# REFACTOR: WA: Move following logic in if statement to User model %>
-		<% if current_user.username.eql? "public_user" %>
+    <%# Refactored: NG: I have moved it to application controller as finding current_user uses session which is undefined in models%>
+		<% if public_user? %>
     <%# REFACTOR: WA: Instead of creating an instance variable, render f.hidden_field conditionally %>
-			<% @ttype = 'public' %>
+    <%# Refactored: NG %>
+   		<%= f.hidden_field :ttype, :value => "public" %>
 		<% else %>
-			<% @ttype = 'private' %>
+			<%= f.hidden_field :ttype, :value => "private" %>
 		<% end %>
-		<%= f.hidden_field :ttype, :value => @ttype %>
-		<%= f.hidden_field :user_id, :value => current_user.id %>
 				
 		<tr>
 			<td><%= f.submit('Tweet', :class => 'tweetSubmit') %></td>

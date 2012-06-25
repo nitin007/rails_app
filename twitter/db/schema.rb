@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120621110122) do
+ActiveRecord::Schema.define(:version => 20120625102024) do
 
-  create_table "followships", :force => true do |t|
+  create_table "follows", :force => true do |t|
     t.integer  "user_id"
     t.integer  "following_id"
     t.datetime "created_at",   :null => false

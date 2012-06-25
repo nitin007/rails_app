@@ -15,9 +15,9 @@ Twitter::Application.routes.draw do
 	match 'logout' => 'logins#logout'
 	match 'login' => 'logins#index'
 	
-	resources :followships, :only => ['index', 'create', 'destroy']
+	resources :follows, :only => ['index', 'create', 'destroy']
 	
-	match "whoToFollow" => 'followships#index'	
+	match "whoToFollow" => 'follows#index'	
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

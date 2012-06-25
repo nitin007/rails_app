@@ -8,7 +8,8 @@
 						<td  class = "fullname"><%= user.fullname %></td>
 						<td class = "button">
               <%# REFACTOR: WA: Move the statement in 'if' inside User model %>
-							<% if @followship = current_user.followships.find_by_following_id(user.id) %>
+              <%# Refactored: NG %>
+							<% if @followship = user.followed?(current_user.id) %>
 								<%= button_to "Following", followship_path(@followship), :method => :delete %>
 							<% else %>
 								<%= button_to "Follow", followships_path(:following_id => user.id), :method => :post %>

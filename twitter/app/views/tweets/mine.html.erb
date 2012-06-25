@@ -12,7 +12,7 @@
 					<div class = "tweetHeader"><b><div>Tweets</div></b></div>
 					<% my_tweets.each do |tweet| %>
 						<div class = "tweet">
-							<% @user = User.find(Tweet.where("id = ?", tweet.id).first.user_id) %>
+							<% @user = tweet.user %>
 							<div class = "userTweet"><b><%= @user.fullname %></b> <span>@<%= @user.username %></span></div>
 							<div><%= tweet.message %></div>
 							

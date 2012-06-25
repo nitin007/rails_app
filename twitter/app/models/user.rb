@@ -1,7 +1,4 @@
 class User < ActiveRecord::Base
-  # TODO: WA: It's good that you know the use of friendly id.
-  # Lets implement the functionality around friendly id on our
-  # own. Hint: Rails provides a method named to_param.
   #Fixed: NG
   
 	#extend FriendlyId
@@ -19,6 +16,7 @@ class User < ActiveRecord::Base
   # FIXME: WA: Use sensible names.
   has_many :followships
   has_many :followings, :through => :followships
+  # FIXME: WA: Use sensible names.
   has_many :inverse_followships, :class_name => "Followship", :foreign_key => :following_id
   has_many :inverse_followings, :through => :inverse_followships, :source => :user
   
@@ -27,6 +25,7 @@ class User < ActiveRecord::Base
   
   has_secure_password
   
+  # WA: TODO: Write a test for following method
   def to_param
   	username
   end

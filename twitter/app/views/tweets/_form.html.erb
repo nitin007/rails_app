@@ -4,7 +4,9 @@
 			<td colsapan = "2"><%= f.text_area :message, :rows => 2, :onkeyup => "return checkMaxlength(this)" %></td>
 		</tr>
 		
+    <%# REFACTOR: WA: Move following logic in if statement to User model %>
 		<% if current_user.username.eql? "public_user" %>
+    <%# REFACTOR: WA: Instead of creating an instance variable, render f.hidden_field conditionally %>
 			<% @ttype = 'public' %>
 		<% else %>
 			<% @ttype = 'private' %>

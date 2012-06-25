@@ -1,4 +1,5 @@
 class FollowshipsController < ApplicationController
+  # TODO: WA: Test this controller more thoroughly.
 	before_filter :only_when_user_is_logged_in
 	
 	def index
@@ -13,8 +14,6 @@ class FollowshipsController < ApplicationController
     @followship = current_user.followships.build(:following_id => params[:following_id])
     
     respond_to do |format|
-      # FIXME: WA: What happens if followship was not created.
-      # Fixed: NG
       if @followship.save
 		    format.html { redirect_to whoToFollow_path, notice: 'Followship was successfully created.' } 
 		  else
@@ -29,9 +28,9 @@ class FollowshipsController < ApplicationController
 	  rescue ActiveRecord::RecordNotFound
 	  	render :text => "Record Not Found"
 	  end
-    # FIXME: WA: What happens when a followship was not destroyed.
-    # Fixed: NG
-    
+    # FIXME: WA: You are calling the same method twice in succession.
+    # Please see create action how to do it properly.
+    # Try not to use 'and' use && instead.
     @followship.destroy
     render :text => 'Followship not destroyed' and return if !@followship.destroy
 

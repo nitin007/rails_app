@@ -15,6 +15,10 @@ development:
   database: twitter_development
   pool: 5
   username: root
+# FIXME: WA: You are exposing directory structure to other developers.
+# There might be a case when you are working with many developers. They
+# have different operating systems on it. How will they handle database.yml?
+# Hint: Remove it from version control.
   password: <%= begin IO.read("/home/nitin-gupta/mysql_pass/pwd.db") rescue "" end %>
   socket: /var/run/mysqld/mysqld.sock
 

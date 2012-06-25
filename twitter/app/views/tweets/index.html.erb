@@ -41,6 +41,8 @@
 					<% @tweets.each do |tweet| %>
 						<tr>
 							<td>
+              <%# FIXME: WA: We already have a tweet at our disposal. Why not simply do tweet.user to get the user
+              instead of following SQL. Instance variables should be created in controllers and not views. %>
 							<% @user = User.find(Tweet.where("id = ?", tweet.id).first.user_id) %>
 								<div class = "userTweet"><b><%= @user.fullname %></b> <span>@<%= @user.username %></span></div>
 								<div><%= tweet.message %></div>
@@ -50,21 +52,23 @@
 											<%= link_to "Delete", tweet, confirm: "Are you sure?", method: :delete %>											
 										<% else %>								
 											<% begin %>
-												<% tweet.users.find(current_user.id) %>
-												<% @tweet_user = TweetsUser.find(:first, :conditions => ['user_id = ? and tweet_id = ?', current_user.id, tweet.id]) %>
-												<%= link_to "Retweeted", tweets_user_path(@tweet_user),  :class => 'retweeted', :title => 'Undo Retweet', method: :delete %>
+												<% tweet.users.find(current_user.id) # REFACTOR: WA: Remove this statement. %>
+												<% @tweet_user = TweetsUser.find(:first, :conditions => ['user_id = ? and tweet_id = ?', current_user.id, tweet.id]) # REFACTOR: WA: Put this in a TweetsUser model inside a method. %>
+												<%= link_to "Retweeted", tweets_user_path(@tweet_user),  :class => 'retweeted', :title => 'Undo Retweet', method: :delete # FIXME: WA: What happens if @tweet_user is nil? %>
 											<% rescue ActiveRecord::RecordNotFound %>
 												<%= link_to "Retweet", {}, :class => 'retweet', :href => "#",  :title => 'Retweet' %>
 											<% end %>
 										<% end %>
 										<div class = "retweetForm">
 											<div><h2>Retweet this to your followers?</h2></div>
+                      <%# FIXME: WA: Following is bad HTML %>
 											<div class= content>
 												<div class = "userTweet"><b><%= @user.fullname %></b> <span>@<%= @user.username %></span></div>
 												<div><%= tweet.message %></div>
 											</div>
 											<div>
 												<%= form_for @tweet_user do |f| %>
+                          <%# FIXME: WA: We do not need to send user_id in our form %>
 													<%= f.hidden_field :user_id, :value => current_user.id %>
 													<%= f.hidden_field :tweet_id, :value => tweet.id %>
 													<table>

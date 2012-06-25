@@ -17,8 +17,6 @@ Twitter::Application.routes.draw do
 	
 	resources :followships, :only => ['index', 'create', 'destroy']
 	
-  # FIXME: WA: We do not need this path.
-  # Fixed NG: I am just changing how url looks!
 	match "whoToFollow" => 'followships#index'	
   # The priority is based upon order of creation:
   # first created -> highest priority.

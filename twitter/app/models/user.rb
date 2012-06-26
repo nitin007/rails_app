@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 	#extend FriendlyId
 	#friendly_id :username, :use => :slugged
 
-  attr_accessible :email, :fullname, :password, :password_digest, :username, :password_confirmation
+  attr_accessible :email, :fullname, :password, :password_digest, :username, :password_confirmation, :slug
   
   validates :fullname, :presence => true
   validates :email, :presence => true

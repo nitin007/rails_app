@@ -4,12 +4,17 @@ describe TweetsUsersController, :type => :controller do
 	render_views
 	
 	before(:each) do
-		@tweets_user = mock_model('TweetsUser')
-		TweetsUser.stub!(:new).and_return(@tweets_user)
-		@tweets_user.stub!(:save).and_return(true)
+		controller.stub!(:only_when_user_is_logged_in).and_return true
+		@user = mock_model('User')
+		@retweet = mock_model('TweetsUser')
+		User.stub!(:find).and_return @user
+		@user.stub!(:tweets_users).and_return true
+		
+		@user.tweets_users.stub!(:new).and_return @retweet
+		@retweet.stub!(:save).and_return true
 	end
 	
-	context "create tweet or retweet" do
+	context "create retweet" do
 		it "should redirect to tweets path if successfully saved" do
 			post :create
 			flash[:notice].should_not be_nil
@@ -17,7 +22,7 @@ describe TweetsUsersController, :type => :controller do
 		end
 		
 		it "should render some text if not saved successfully" do
-			@tweets_user.stub!(:save).and_return false
+			@retweet.stub!(:save).and_return false
 			post :create
 			flash[:notice].should be_nil
 			response.should render_template(:text => "tweet was not saved successfully")
@@ -25,8 +30,8 @@ describe TweetsUsersController, :type => :controller do
 	end
 	
 	it "should destroys when undo retweet or tweet deleted" do
-		TweetsUser.stub!(:find).and_return @tweets_user
-		delete :destroy
+		@user.tweets_users.stub!(:find).with("1").and_return @retweet
+		delete :destroy, :id => "1"
 		response.should redirect_to tweets_path
 	end
 end

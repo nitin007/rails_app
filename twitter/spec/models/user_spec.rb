@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
 
 	before do
-		@user = User.new(:fullname => "Nitin Gupta", :email => "nitin@vinsol.com", :username => "nitin", :password => "12345678", :password_confirmation => "12345678")
+		@user = User.new(:fullname => "Nitin Gupta", :email => "nitin@vinsol.com", :username => "nitin", :password => "12345678", :slug => "nitin")
 		@user.save
 	end
 		

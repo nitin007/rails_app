@@ -9,10 +9,10 @@
 						<td class = "button">
               <%# REFACTOR: WA: Move the statement in 'if' inside User model %>
               <%# Refactored: NG %>
-							<% if @followship = user.followed?(current_user.id) %>
-								<%= button_to "Following", followship_path(@followship), :method => :delete %>
+							<% if @followed = user.followed?(current_user.id) %>
+								<%= button_to "Following", follow_path(@followed), :method => :delete %>
 							<% else %>
-								<%= button_to "Follow", followships_path(:following_id => user.id), :method => :post %>
+								<%= button_to "Follow", follows_path(:following_id => user.id), :method => :post %>
 							<% end %>
 						</td>
 					</tr>

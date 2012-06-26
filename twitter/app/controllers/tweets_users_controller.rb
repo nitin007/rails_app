@@ -1,7 +1,9 @@
 class TweetsUsersController < ApplicationController
   # TODO: WA: Test this controller more thoroughly.
+  before_filter :only_when_user_is_logged_in
+  
 	def create
-	  @tweet_user = current_user.tweets_users.create(params[:tweets_user])
+	  @tweet_user = current_user.tweets_users.new(params[:tweets_user])
 
 		respond_to do |format|
 		  if @tweet_user.save
@@ -14,11 +16,12 @@ class TweetsUsersController < ApplicationController
 	
 	def destroy		
 		begin
-			@tweet_user = current_user.tweets_users.find(params[:id])
+			@retweet = current_user.tweets_users.find(params[:id])
 		rescue ActiveRecord::RecordNotFound
 			render :text => "Record Not Found"
 		end
-		@tweet_user.destroy
+		
+		render :text => "Retweet not posted successfully" && return if !@retweet.destroy
 		
 		respond_to do |format|
 			format.html {redirect_to tweets_path}

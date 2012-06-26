@@ -5,7 +5,7 @@ describe UsersController, :type => :controller do
 	
 	before(:each) do
 		@user = mock_model('User', :save => true)
-		User.stub!(:find_by_username).and_return @user
+		controller.stub!(:only_when_user_is_logged_in).and_return true
 	end
 		
 	it "should render with new user to be registered" do
@@ -32,14 +32,16 @@ describe UsersController, :type => :controller do
 	end
 	
 	it "should redirects to tweets path if user not found" do
-		@user.stub!(:find).and_return false
-		get :show
+		User.stub!(:find).with("3").and_return @user
+		User.stub!(:find_by_username).and_return false
+		get :show, :id => "3"
 		response.should redirect_to tweets_path
 	end
 	
 	it "should show details of user when show is called" do
 		User.stub!(:find).and_return @user
-		get :show
+		User.stub!(:find_by_username).and_return @user
+		get :show, :id => "3"
 		response.should be_success
 	end
 end

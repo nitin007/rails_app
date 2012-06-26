@@ -24,11 +24,7 @@ class UsersController < ApplicationController
 	end
 	
 	def show
-		begin
-			@user = User.find_by_username(params[:id])
-		rescue ActiveRecord::RecordNotFound
-			redirect_to tweets_path and return
-		end
+		redirect_to tweets_path and return if !@user = User.find_by_username(params[:id])
 		
 		respond_to do |format|
 			format.html

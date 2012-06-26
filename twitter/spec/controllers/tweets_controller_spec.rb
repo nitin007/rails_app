@@ -1,20 +1,31 @@
 require 'spec_helper'
 
 describe TweetsController, :type => :controller do
-	fixtures :users
 	render_views
 	
 	before(:each) do
-		@tweet = mock_model('Tweet')
-		Tweet.stub!(:new).and_return(@tweet)
-		@tweet.stub!(:save).and_return(true)
-	 	@user = users(:one)
+		controller.stub!(:only_when_user_is_logged_in).and_return true	
 
-		session[:current_user] = @user.username
-		session[:current_user_id] = @user.id
+		@user = mock_model('User')
+		@tweet = mock_model('Tweet', :save => true)
+		
+		User.stub!(:find).and_return @user
+		@user.stub!(:tweets).and_return true
+		@user.tweets.stub!(:build).and_return @tweet
+		@user.tweets.stub!(:new).and_return @tweet
+		@tweet.stub!(:save).and_return true		
+		
+		@my_tweets = (1..5).collect { mock_model("Tweet") }
+		@my_tweets.stub!(:count).and_return true
+		@my_tweets.stub!(:each).and_return true
+		
+		controller.stub!(:my_tweets).and_return @my_tweets
 	end
 		
-	it "shows all follwers', user and public tweets when index is called" do
+	it "shows all followers', user and public tweets when index is called" do
+		@user.stub_chain(:followings, :count).and_return true
+		@user.stub_chain(:inverse_followings, :count).and_return true
+
 		get :index
 		response.should be_success
 	end
@@ -39,9 +50,15 @@ describe TweetsController, :type => :controller do
 	
 	context "destroys a tweet" do
 		it "should redirect to tweets path" do
-			Tweet.stub!(:find).with("3") { @tweet }
-			delete :destroy, :id => "3"
+			@user.tweets.stub!(:find).with("7").and_return @tweet
+			delete :destroy, :id => "7"
 			response.should redirect_to(tweets_path)
+		end
+		
+		it "should display with record not found when tweet not found" do
+			@user.tweets.stub!(:find).and_return ActiveRecord::RecordNotFound
+			delete :destroy, :id => "2"
+			response.should render_template(:text => "Record Not Found")
 		end
 	end
 end

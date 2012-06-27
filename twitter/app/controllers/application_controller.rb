@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 	end
   
   def my_tweets
-  	@my_tweets = current_user.tweets << Tweet.joins(:tweets_users).where("tweets_users.user_id = ?", current_user.id)
+  	@my_tweets = Tweet.find_by_sql("select tweets.* from tweets where user_id = #{current_user.id} UNION  select tweets.* from tweets INNER JOIN tweets_users ON tweets.id = tweets_users.tweet_id where tweets_users.user_id = #{current_user.id}")
   end
   
   def public_user?

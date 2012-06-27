@@ -23,27 +23,27 @@
       <img src="./assets/0.5.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2012-06-26T17:11:00+05:30">2012-06-26T17:11:00+05:30</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2012-06-27T13:45:21+05:30">2012-06-27T13:45:21+05:30</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">98.04%</span></span>
+    (<span class="covered_percent"><span class="green">98.33%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.13
+         1.12
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>29</b> files in total.
-    <b>358</b> relevant lines. 
-    <span class="green"><b>351</b> lines covered</span> and
-    <span class="red"><b>7</b> lines missed </span>
+    <b>359</b> relevant lines. 
+    <span class="green"><b>353</b> lines covered</span> and
+    <span class="red"><b>6</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -66,13 +66,13 @@
         <td>12</td>
         <td>10</td>
         <td>2</td>
-        <td>2.8</td>
+        <td>2.9</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#a51f9b9c7ab72ec7182a38d0da63d5bcd25b824f" class="src_link" title="app/controllers/follows_controller.rb">app/controllers/follows_controller.rb</a></td>
         <td class="green strong">94.74 %</td>
-        <td>41</td>
+        <td>42</td>
         <td>19</td>
         <td>18</td>
         <td>1</td>
@@ -181,12 +181,12 @@
       
       <tr>
         <td class="strong"><a href="#cba4bc5de6dcc9f4de3bb6c0ddb2aeca224d96b3" class="src_link" title="app/models/user.rb">app/models/user.rb</a></td>
-        <td class="green strong">94.74 %</td>
-        <td>39</td>
+        <td class="green strong">100.0 %</td>
+        <td>38</td>
         <td>19</td>
-        <td>18</td>
-        <td>1</td>
-        <td>1.1</td>
+        <td>19</td>
+        <td>0</td>
+        <td>1.2</td>
       </tr>
       
       <tr>
@@ -322,11 +322,11 @@
       <tr>
         <td class="strong"><a href="#2cbed2ca064b26b4fd9b530298a11bc6988ed424" class="src_link" title="spec/controllers/tweets_controller_spec.rb">spec/controllers/tweets_controller_spec.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>64</td>
-        <td>40</td>
-        <td>40</td>
+        <td>58</td>
+        <td>37</td>
+        <td>37</td>
         <td>0</td>
-        <td>3.3</td>
+        <td>3.0</td>
       </tr>
       
       <tr>
@@ -342,9 +342,9 @@
       <tr>
         <td class="strong"><a href="#7fd21a7de5f82870dd6213f909ccc3a64cafa8a2" class="src_link" title="spec/models/user_spec.rb">spec/models/user_spec.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>69</td>
-        <td>40</td>
-        <td>40</td>
+        <td>76</td>
+        <td>44</td>
+        <td>44</td>
         <td>0</td>
         <td>1.2</td>
       </tr>
@@ -409,8 +409,8 @@
           <code class="ruby"> 	def current_user</code>
         </li>
       
-        <li class="covered" data-hits="25" data-linenumber="6">
-          <span class="hits">25</span>
+        <li class="covered" data-hits="26" data-linenumber="6">
+          <span class="hits">26</span>
           
           <code class="ruby">		@current_user ||= User.find(session[:current_user_id])</code>
         </li>
@@ -436,7 +436,7 @@
         <li class="missed" data-hits="0" data-linenumber="10">
           
           
-          <code class="ruby">  	@my_tweets = current_user.tweets &lt;&lt; Tweet.joins(:tweets_users).where(&quot;tweets_users.user_id = ?&quot;, current_user.id)</code>
+          <code class="ruby">  	@my_tweets = Tweet.find_by_sql(&quot;select tweets.* from tweets where user_id = #{current_user.id} UNION  select tweets.* from tweets INNER JOIN tweets_users ON tweets.id = tweets_users.tweet_id where tweets_users.user_id = #{current_user.id}&quot;)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="11">
@@ -541,235 +541,241 @@
           <code class="ruby">  # TODO: WA: Test this controller more thoroughly.</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="3">
+        <li class="never" data-hits="" data-linenumber="3">
+          
+          
+          <code class="ruby">  # Fixed: NG</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
           <code class="ruby">	before_filter :only_when_user_is_logged_in</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="4">
+        <li class="never" data-hits="" data-linenumber="5">
           
           
           <code class="ruby">	</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="5">
+        <li class="covered" data-hits="1" data-linenumber="6">
           <span class="hits">1</span>
           
           <code class="ruby">	def index</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="6">
+        <li class="covered" data-hits="1" data-linenumber="7">
           <span class="hits">1</span>
           
           <code class="ruby">		@users = User.where('id != ?', current_user.id)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="7">
+        <li class="never" data-hits="" data-linenumber="8">
           
           
           <code class="ruby">			</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="8">
+        <li class="covered" data-hits="1" data-linenumber="9">
           <span class="hits">1</span>
           
           <code class="ruby">		respond_to do |format|</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="9">
+        <li class="covered" data-hits="1" data-linenumber="10">
           <span class="hits">1</span>
           
           <code class="ruby">			format.html</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="10">
+        <li class="never" data-hits="" data-linenumber="11">
           
           
           <code class="ruby">		end		</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="11">
+        <li class="never" data-hits="" data-linenumber="12">
           
           
           <code class="ruby">	end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="12">
+        <li class="never" data-hits="" data-linenumber="13">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="13">
+        <li class="covered" data-hits="1" data-linenumber="14">
           <span class="hits">1</span>
           
           <code class="ruby">  def create</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="14">
+        <li class="covered" data-hits="2" data-linenumber="15">
           <span class="hits">2</span>
           
           <code class="ruby">    @follows = current_user.follows.build(:following_id =&gt; params[:following_id])</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="15">
+        <li class="never" data-hits="" data-linenumber="16">
           
           
           <code class="ruby">    </code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="16">
-          <span class="hits">2</span>
-          
-          <code class="ruby">    respond_to do |format|</code>
-        </li>
-      
         <li class="covered" data-hits="2" data-linenumber="17">
           <span class="hits">2</span>
           
-          <code class="ruby">      if @follows.save</code>
+          <code class="ruby">    respond_to do |format|</code>
         </li>
       
         <li class="covered" data-hits="2" data-linenumber="18">
           <span class="hits">2</span>
           
+          <code class="ruby">      if @follows.save</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="19">
+          <span class="hits">2</span>
+          
           <code class="ruby">		    format.html { redirect_to whoToFollow_path, notice: 'Follow was successfully created.' } </code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="19">
+        <li class="never" data-hits="" data-linenumber="20">
           
           
           <code class="ruby">		  else</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="20">
+        <li class="covered" data-hits="1" data-linenumber="21">
           <span class="hits">1</span>
           
           <code class="ruby">		  	render :text =&gt; &quot;Follow was not created.&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="21">
+        <li class="never" data-hits="" data-linenumber="22">
           
           
           <code class="ruby">		  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="22">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
         <li class="never" data-hits="" data-linenumber="23">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="24">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="25">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="25">
           
-          <code class="ruby">  def destroy</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="26">
           <span class="hits">1</span>
           
-          <code class="ruby">		begin</code>
+          <code class="ruby">  def destroy</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="27">
           <span class="hits">1</span>
           
+          <code class="ruby">		begin</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="28">
+          <span class="hits">1</span>
+          
           <code class="ruby">	    @following = current_user.followings.find(params[:id])</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="28">
+        <li class="never" data-hits="" data-linenumber="29">
           
           
           <code class="ruby">	  rescue ActiveRecord::RecordNotFound</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="29">
+        <li class="missed" data-hits="0" data-linenumber="30">
           
           
           <code class="ruby">	  	render :text =&gt; &quot;Record Not Found&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="30">
+        <li class="never" data-hits="" data-linenumber="31">
           
           
           <code class="ruby">	  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="31">
+        <li class="never" data-hits="" data-linenumber="32">
           
           
           <code class="ruby">    # FIXME: WA: You are calling the same method twice in succession.</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="32">
+        <li class="never" data-hits="" data-linenumber="33">
           
           
           <code class="ruby">    # Please see create action how to do it properly.</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="33">
+        <li class="never" data-hits="" data-linenumber="34">
           
           
           <code class="ruby">    # Try not to use 'and' use &amp;&amp; instead.</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="34">
+        <li class="never" data-hits="" data-linenumber="35">
           
           
           <code class="ruby">    #Fixed: NG</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="35">
+        <li class="covered" data-hits="1" data-linenumber="36">
           <span class="hits">1</span>
           
           <code class="ruby">    render :text =&gt; 'Following not destroyed' &amp;&amp; return if !@following.destroy</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="36">
+        <li class="never" data-hits="" data-linenumber="37">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="37">
+        <li class="covered" data-hits="1" data-linenumber="38">
           <span class="hits">1</span>
           
           <code class="ruby">    respond_to do |format|</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="38">
+        <li class="covered" data-hits="2" data-linenumber="39">
           <span class="hits">2</span>
           
           <code class="ruby">      format.html { redirect_to whoToFollow_path }</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="39">
+        <li class="never" data-hits="" data-linenumber="40">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="40">
+        <li class="never" data-hits="" data-linenumber="41">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="41">
+        <li class="never" data-hits="" data-linenumber="42">
           
           
           <code class="ruby">end</code>
@@ -2216,11 +2222,11 @@
         <div class="source_table" id="cba4bc5de6dcc9f4de3bb6c0ddb2aeca224d96b3">
   <div class="header">
     <h3>app/models/user.rb</h3>
-    <h4><span class="green">94.74 %</span> covered</h4>
+    <h4><span class="green">100.0 %</span> covered</h4>
     <div>
       <b>19</b> relevant lines. 
-      <span class="green"><b>18</b> lines covered</span> and
-      <span class="red"><b>1</b> lines missed.</span>
+      <span class="green"><b>19</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
   
@@ -2404,58 +2410,52 @@
         <li class="never" data-hits="" data-linenumber="30">
           
           
-          <code class="ruby">  </code>
+          <code class="ruby">    </code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="31">
-          
-          
-          <code class="ruby">  # WA: TODO: Write a test for following method</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="32">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def to_param</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="33">
-          
-          
-          <code class="ruby">  	username</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="34">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="35">
-          
-          
-          <code class="ruby">  </code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="36">
+        <li class="covered" data-hits="1" data-linenumber="31">
           <span class="hits">1</span>
           
           <code class="ruby">  def followed?(uid)</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="37">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="32">
+          <span class="hits">4</span>
           
           <code class="ruby">  	User.find(uid).follows.find_by_following_id(self.id)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="38">
+        <li class="never" data-hits="" data-linenumber="33">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="39">
+        <li class="never" data-hits="" data-linenumber="34">
+          
+          
+          <code class="ruby">  </code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="35">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def to_param</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="36">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  	username</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="37">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="38">
           
           
           <code class="ruby">end</code>
@@ -4630,8 +4630,8 @@
     <h3>spec/controllers/tweets_controller_spec.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>40</b> relevant lines. 
-      <span class="green"><b>40</b> lines covered</span> and
+      <b>37</b> relevant lines. 
+      <span class="green"><b>37</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -4675,8 +4675,8 @@
           <code class="ruby">	before(:each) do</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="7">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="7">
+          <span class="hits">5</span>
           
           <code class="ruby">		controller.stub!(:only_when_user_is_logged_in).and_return true	</code>
         </li>
@@ -4687,14 +4687,14 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="9">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="9">
+          <span class="hits">5</span>
           
           <code class="ruby">		@user = mock_model('User')</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="10">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="10">
+          <span class="hits">5</span>
           
           <code class="ruby">		@tweet = mock_model('Tweet', :save =&gt; true)</code>
         </li>
@@ -4705,32 +4705,32 @@
           <code class="ruby">		</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="12">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="12">
+          <span class="hits">5</span>
           
           <code class="ruby">		User.stub!(:find).and_return @user</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="13">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="13">
+          <span class="hits">5</span>
           
           <code class="ruby">		@user.stub!(:tweets).and_return true</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="14">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="14">
+          <span class="hits">5</span>
           
           <code class="ruby">		@user.tweets.stub!(:build).and_return @tweet</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="15">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="15">
+          <span class="hits">5</span>
           
           <code class="ruby">		@user.tweets.stub!(:new).and_return @tweet</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="16">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="16">
+          <span class="hits">5</span>
           
           <code class="ruby">		@tweet.stub!(:save).and_return true		</code>
         </li>
@@ -4741,20 +4741,20 @@
           <code class="ruby">		</code>
         </li>
       
-        <li class="covered" data-hits="36" data-linenumber="18">
-          <span class="hits">36</span>
+        <li class="covered" data-hits="30" data-linenumber="18">
+          <span class="hits">30</span>
           
           <code class="ruby">		@my_tweets = (1..5).collect { mock_model(&quot;Tweet&quot;) }</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="19">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="19">
+          <span class="hits">5</span>
           
           <code class="ruby">		@my_tweets.stub!(:count).and_return true</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="20">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="20">
+          <span class="hits">5</span>
           
           <code class="ruby">		@my_tweets.stub!(:each).and_return true</code>
         </li>
@@ -4765,8 +4765,8 @@
           <code class="ruby">		</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="22">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="22">
+          <span class="hits">5</span>
           
           <code class="ruby">		controller.stub!(:my_tweets).and_return @my_tweets</code>
         </li>
@@ -4978,46 +4978,10 @@
         <li class="never" data-hits="" data-linenumber="57">
           
           
-          <code class="ruby">		</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="58">
-          <span class="hits">1</span>
-          
-          <code class="ruby">		it &quot;should display with record not found when tweet not found&quot; do</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="59">
-          <span class="hits">1</span>
-          
-          <code class="ruby">			@user.tweets.stub!(:find).and_return ActiveRecord::RecordNotFound</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="60">
-          
-          
-          <code class="ruby">#			delete :destroy, :id =&gt; &quot;2&quot;</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="61">
-          <span class="hits">1</span>
-          
-          <code class="ruby">			response.should render_template(:text =&gt; &quot;Record Not Found&quot;)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="62">
-          
-          
-          <code class="ruby">		end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="63">
-          
-          
           <code class="ruby">	end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="64">
+        <li class="never" data-hits="" data-linenumber="58">
           
           
           <code class="ruby">end</code>
@@ -5332,8 +5296,8 @@
     <h3>spec/models/user_spec.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>40</b> relevant lines. 
-      <span class="green"><b>40</b> lines covered</span> and
+      <b>44</b> relevant lines. 
+      <span class="green"><b>44</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -5371,14 +5335,14 @@
           <code class="ruby">	before do</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="6">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="6" data-linenumber="6">
+          <span class="hits">6</span>
           
-          <code class="ruby">		@user = User.new(:fullname =&gt; &quot;Nitin Gupta&quot;, :email =&gt; &quot;nitin@vinsol.com&quot;, :username =&gt; &quot;nitin&quot;, :password =&gt; &quot;12345678&quot;, :slug =&gt; &quot;nitin&quot;)</code>
+          <code class="ruby">		@user = User.new(:fullname =&gt; &quot;Nitin Gupta&quot;, :email =&gt; &quot;nitin@vinsol.com&quot;, :username =&gt; &quot;nitin&quot;, :password =&gt; &quot;12345678&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="7">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="6" data-linenumber="7">
+          <span class="hits">6</span>
           
           <code class="ruby">		@user.save</code>
         </li>
@@ -5692,7 +5656,7 @@
         <li class="covered" data-hits="1" data-linenumber="59">
           <span class="hits">1</span>
           
-          <code class="ruby">						@user1 = User.new(:fullname =&gt; &quot;Nitin Gupta&quot;, :email =&gt; &quot;nitin@vinsol.com&quot;, :username =&gt; &quot;nitin1&quot;, :password =&gt; &quot;123456789&quot;, :password_confirmation =&gt; &quot;123456789&quot;)</code>
+          <code class="ruby">			@user1 = User.new(:fullname =&gt; &quot;Nitin Gupta&quot;, :email =&gt; &quot;nitin@vinsol.com&quot;, :username =&gt; &quot;nitin1&quot;, :password =&gt; &quot;123456789&quot;, :password_confirmation =&gt; &quot;123456789&quot;)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="60">
@@ -5750,6 +5714,48 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="69">
+          
+          
+          <code class="ruby">	</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="70">
+          <span class="hits">1</span>
+          
+          <code class="ruby">	it &quot;should show user profile by having username in url&quot; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="71">
+          <span class="hits">1</span>
+          
+          <code class="ruby">		@user = User.new(:fullname =&gt; &quot;Puneet Sharma&quot;, :email =&gt; &quot;puneet@abc.com&quot;, :username =&gt; &quot;puneet&quot;, :password =&gt; &quot;12345678&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="72">
+          <span class="hits">1</span>
+          
+          <code class="ruby">		@user.save</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="73">
+          
+          
+          <code class="ruby">		</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="74">
+          <span class="hits">1</span>
+          
+          <code class="ruby">		@user.to_param.should == &quot;puneet&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="75">
+          
+          
+          <code class="ruby">	end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="76">
           
           
           <code class="ruby">end</code>

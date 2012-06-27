@@ -1,5 +1,6 @@
 class FollowsController < ApplicationController
   # TODO: WA: Test this controller more thoroughly.
+  # Fixed: NG
 	before_filter :only_when_user_is_logged_in
 	
 	def index

@@ -1,7 +1,7 @@
 <%= form_for(@tweet) do |f| %>
 	<table>
 		<tr>
-			<td colsapan = "2"><%= f.text_area :message, :rows => 2, :onkeyup => "return checkMaxlength(this)" %></td>
+			<td colsapan = "2"><%= f.text_area :message, :rows => 2 %></td>
 		</tr>
 		
     <%# REFACTOR: WA: Move following logic in if statement to User model %>
@@ -15,7 +15,7 @@
 		<% end %>
 				
 		<tr>
-			<td><%= f.submit('Tweet', :class => 'tweetSubmit') %></td>
+			<td id = "charCount"><span id = "count"><b></b></span><span id = "button"><%= f.submit('Tweet', :class => 'tweetSubmit') %></td>
 		</tr>
 	</table>
 <% end %>

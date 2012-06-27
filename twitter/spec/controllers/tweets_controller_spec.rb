@@ -54,11 +54,5 @@ describe TweetsController, :type => :controller do
 			delete :destroy, :id => "7"
 			response.should redirect_to(tweets_path)
 		end
-		
-		it "should display with record not found when tweet not found" do
-			@user.tweets.stub!(:find).and_return ActiveRecord::RecordNotFound
-			delete :destroy, :id => "2"
-			response.should render_template(:text => "Record Not Found")
-		end
 	end
 end

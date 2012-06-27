@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
 
 	before do
-		@user = User.new(:fullname => "Nitin Gupta", :email => "nitin@vinsol.com", :username => "nitin", :password => "12345678", :slug => "nitin")
+		@user = User.new(:fullname => "Nitin Gupta", :email => "nitin@vinsol.com", :username => "nitin", :password => "12345678")
 		@user.save
 	end
 		
@@ -56,7 +56,7 @@ describe User do
 	
 	context "email with correct format" do
 		it "should be valid" do
-						@user1 = User.new(:fullname => "Nitin Gupta", :email => "nitin@vinsol.com", :username => "nitin1", :password => "123456789", :password_confirmation => "123456789")
+			@user1 = User.new(:fullname => "Nitin Gupta", :email => "nitin@vinsol.com", :username => "nitin1", :password => "123456789", :password_confirmation => "123456789")
 			@user1.should be_valid
 			
 			@user1.email = "nitin@and"
@@ -65,5 +65,12 @@ describe User do
 			@user1.email = "nitin.and"
 			@user1.should_not be_valid			
 		end
+	end
+	
+	it "should show user profile by having username in url" do
+		@user = User.new(:fullname => "Puneet Sharma", :email => "puneet@abc.com", :username => "puneet", :password => "12345678")
+		@user.save
+		
+		@user.to_param.should == "puneet"
 	end
 end

@@ -394,7 +394,7 @@ div.myTweetBackground div.dashboard {
 	border-radius: 5px;
 }
 
-div.thisUser div.mytweetBackground {
+div.thisUser divmytweetBackground {
 	width: 865px;
 	margin-left: 240px;
 }
@@ -416,4 +416,9 @@ div.userDetail table td {
 
 div.userDetail table td.two {
 	float: right
+}
+
+td#charCount span#count {
+	margin-left: 165px;
+	color: #A1A1A1;
 }

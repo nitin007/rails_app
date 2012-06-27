@@ -29,6 +29,42 @@ $(function(){
 													 'border' : '1px solid #E0E0E0'}
 													 );
 		}
+						
+		var charLeft = 160 - this.value.length;
+		$("td#charCount span#count b").replaceWith("<b>"+charLeft+"</b>");		
+	});
+	
+	$("textarea").keyup(function(){
+		var tMaxLen = 160
+		var tCurLen = this.value.length;
+	
+		if ( tCurLen > tMaxLen )
+		{
+			this.value = this.value.substring(0, tMaxLen);
+		}
+	
+		if (tCurLen == 0 || !this.value.match(/[A-z0-9]/)) {
+			$("input.tweetSubmit").attr("disabled", "disabled");
+			$("input.tweetSubmit").css({'background-color' : '#F9F9F9', 
+																 'color' : '#959595',
+																 'border' : '1px solid #E0E0E0'}
+																 );
+		}
+		else {
+			$("input.tweetSubmit").removeAttr("disabled");
+			$("input.tweetSubmit").css({'background-color' : '#17A5D9', 
+																 'color' : '#fff',
+																 'border' : '1px solid #1284AE'}
+																 );
+		}
+	
+		var charLeft = tMaxLen - tCurLen
+	
+		if(charLeft < 0) {
+			charLeft = 0;
+		}
+
+		$("#charCount span#count b").replaceWith("<b>"+charLeft+"</b>");	
 	});
 	
 	$('input[value=Follow]').click(function(){
@@ -69,31 +105,4 @@ $(function(){
 		$('div.tweetsTable').css({'background-color' : '#fff'});
 	});
 });
-
-function checkMaxlength(tObj)
-{	
-	var tMaxLen = 160
-	var tCurLen = tObj.value.length;
-	
-	if ( tCurLen > tMaxLen )
-	{
-		tObj.value = tObj.value.substring(0, tMaxLen);
-	}
-	
-	if (tCurLen == 0) {
-		$("input.tweetSubmit").attr("disabled", "disabled");
-		$("input.tweetSubmit").css({'background-color' : '#F9F9F9', 
-															 'color' : '#959595',
-															 'border' : '1px solid #E0E0E0'}
-															 );
-	}
-	else {
-		$("input.tweetSubmit").removeAttr("disabled");
-		$("input.tweetSubmit").css({'background-color' : '#17A5D9', 
-															 'color' : '#fff',
-															 'border' : '1px solid #1284AE'}
-															 );
-	}	
-}
-
 

@@ -27,13 +27,12 @@ class User < ActiveRecord::Base
   has_many :tweets
   
   has_secure_password
-  
-  # WA: TODO: Write a test for following method
-  def to_param
-  	username
-  end
-  
+    
   def followed?(uid)
   	User.find(uid).follows.find_by_following_id(self.id)
+  end
+  
+  def to_param
+  	username
   end
 end

@@ -7,8 +7,7 @@
 					<tr>
 						<td  class = "fullname"><%= user.fullname %></td>
 						<td class = "button">
-              <%# REFACTOR: WA: Move the statement in 'if' inside User model %>
-              <%# Refactored: NG %>
+              <%# FIXME: WA: DO NOT CREATE INSTANCE VARIABLES IN VIEWS. Thanks! #>
 							<% if @followed = user.followed?(current_user.id) %>
 								<%= button_to "Following", follow_path(@followed), :method => :delete %>
 							<% else %>

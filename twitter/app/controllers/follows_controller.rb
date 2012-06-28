@@ -1,6 +1,4 @@
 class FollowsController < ApplicationController
-  # TODO: WA: Test this controller more thoroughly.
-  # Fixed: NG
 	before_filter :only_when_user_is_logged_in
 	
 	def index
@@ -23,16 +21,13 @@ class FollowsController < ApplicationController
     end
   end
 
+  # TODO: WA: Test following action thoroughly.
   def destroy
 		begin
 	    @following = current_user.followings.find(params[:id])
 	  rescue ActiveRecord::RecordNotFound
 	  	render :text => "Record Not Found"
 	  end
-    # FIXME: WA: You are calling the same method twice in succession.
-    # Please see create action how to do it properly.
-    # Try not to use 'and' use && instead.
-    #Fixed: NG
     render :text => 'Following not destroyed' && return if !@following.destroy
 
     respond_to do |format|

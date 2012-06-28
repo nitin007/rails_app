@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  #Fixed: NG
-  
 	#extend FriendlyId
 	#friendly_id :username, :use => :slugged
 
@@ -17,7 +15,8 @@ class User < ActiveRecord::Base
   # Fixed: NG
   has_many :follows
   has_many :followings, :through => :follows
-  # FIXME: WA: Use sensible names.
+  # TODO: WA: If you read this please come to me so that we can discuss
+  # following.
   # Fixed: NG
   has_many :inverse_follows, :class_name => "Follow", :foreign_key => :following_id
   has_many :inverse_followings, :through => :inverse_follows, :source => :user
@@ -28,6 +27,12 @@ class User < ActiveRecord::Base
   
   has_secure_password
     
+  # OPTIMIZE: WA: It is much better to pass the whole user
+  # object in following method than its id. This way,
+  # you work with an existing object and do not have
+  # to fire up unnecessary SQLs.
+  #
+  # TODO: WA: Write test for following.
   def followed?(uid)
   	User.find(uid).follows.find_by_following_id(self.id)
   end

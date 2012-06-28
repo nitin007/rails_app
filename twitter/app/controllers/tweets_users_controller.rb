@@ -1,5 +1,4 @@
 class TweetsUsersController < ApplicationController
-  # TODO: WA: Test this controller more thoroughly.
   before_filter :only_when_user_is_logged_in
   
 	def create
@@ -14,6 +13,7 @@ class TweetsUsersController < ApplicationController
 		end
 	end
 	
+  # TODO: WA: Test following action more thoroughly.
 	def destroy		
 		begin
 			@retweet = current_user.tweets_users.find(params[:id])

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe User do
+  # REFACTOR: WA: Please refator these test cases. There is a lot of duplication.
+  # And also unnecessary variables.
 
 	before do
 		@user = User.new(:fullname => "Nitin Gupta", :email => "nitin@vinsol.com", :username => "nitin", :password => "12345678")
@@ -32,9 +34,9 @@ describe User do
 		end
 	end
 	
+  # TODO: WA: Remote following empty context
 	context "password and password_confirmation" do 
-    # FIXME: WA: We do not need following test.
-    # It is provided by rails.
+
     
     #Fixed: NG
 	end

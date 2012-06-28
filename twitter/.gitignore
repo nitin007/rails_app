@@ -5,6 +5,7 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 # Ignore bundler config
+# TODO: WA: Add all the coverage directories to gitignore
 /.bundle
 
 # Ignore the default SQLite database.

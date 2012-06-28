@@ -6,10 +6,17 @@ class ApplicationController < ActionController::Base
 		@current_user ||= User.find(session[:current_user_id])
 	end
   
+  # REFACTOR: WA: This should be in user model with test cases.
   def my_tweets
   	@my_tweets = Tweet.find_by_sql("select tweets.* from tweets where user_id = #{current_user.id} UNION  select tweets.* from tweets INNER JOIN tweets_users ON tweets.id = tweets_users.tweet_id where tweets_users.user_id = #{current_user.id}")
   end
   
+  # REFACTOR: WA: This should be in user model with test cases.
+  # Why a user's username decides whether he is a public user
+  # or not? Some user's username could be pikachu. He will
+  # be private in that case, right? Moreover looking at current
+  # implementation, there could be only one user in your db
+  # with username 'public_user'. Why's that?
   def public_user?
   	current_user.username.eql? "public_user"
   end
